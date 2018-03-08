@@ -23,7 +23,6 @@ body {
 	line-height: 4vw;
 	margin: 0px;
 	margin-top: 2vh;
-	/*margin-left: 6vw;*/
 	border-left: 1px solid darkgrey;
 }
 
@@ -89,9 +88,6 @@ body {
 }
 
 .option-container {
-	/*border-right: 1px solid darkgrey;
-	box-sizing: border-box;*/
-
 	float: left;
 	height: 4vw;
 
@@ -122,19 +118,13 @@ body {
 }
 
 .sub-option {
-	/*height: calc(4vw - 1px);*/ /*leave space for borders*/
 	height: 4vw;
-	/*border-bottom: 1px solid lightgrey;*/
 }
 
 .item:hover + .option-container {
 	border-left: none;
 	width: 10vw;
 }
-
-/*.item:hover {  so the border slides out w/options 
-	border-right: 1px solid ghostwhite;
-}*/
 
 .option-container:hover {
 	border-left: none;

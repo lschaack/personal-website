@@ -10,8 +10,6 @@ function doPrettyColors() {
 		let container = document.getElementById(id);
 		let children = container.children;
 		let topColor = window.getComputedStyle((children[0] as HTMLElement)).backgroundColor;
-		// let topLightness = parseInt(topColor.substring(topColor.lastIndexOf(',') + 1));
-		// let i = 0; // use to calculate next lightness value
 		console.log(topColor);
 
 		for (let childIndex in children) { // use index for computed lightness
@@ -20,27 +18,31 @@ function doPrettyColors() {
 			console.log(children[childIndex]);
 			if (parseInt(childIndex)) {
 				let currElement = <HTMLElement> children[childIndex];
-				currElement.style.backgroundColor = decrementLightness(topColor, parseInt(childIndex) * 0.1);
+				currElement.style.backgroundColor = incrementLightness(topColor, parseInt(childIndex));
 			}
 		}
 	}
 }
 
 /* Given a string representing an RGB value (like "rgb(255, 255, 255)"), returns
- * a string representing that color decreased by the percent value, where e.g. a
- * percent value of 0.1 will decrement by 10% */
-function decrementLightness(colorString: string, percent: number) {
+ * a string in which every color is lightened as a function of the difference
+ * between its current value and 255, as well as a multiplier (which in
+ * doPrettyColors is decided by how "deep" into the sub-menu the option is) */
+function incrementLightness(colorString: string, multiplier: number) {
 	// first, get individual values
 	let r: number = parseInt(colorString.substring(4, colorString.indexOf(',')));
 	let g: number = parseInt(colorString.substring(
 						colorString.indexOf(',') + 1, colorString.lastIndexOf(',')));
 	let b: number = parseInt(colorString.substring( colorString.lastIndexOf(',') + 1));
 
-	r = r * (1 + percent);
-	g = g * (1 + percent);
-	b = b * (1 + percent);
+	let rgb: Array<number> = [r, g, b];
 
-	return "rgb(" + r + "," + g + "," + b + ")";
+	for (let i in rgb) {
+		let index = parseInt(i);
+		rgb[index] += ((255 - rgb[index]) * 0.2 * multiplier);
+	}
+
+	return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 }
 
 window.onload = function() {

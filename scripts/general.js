@@ -15,19 +15,21 @@ function doPrettyColors() {
             console.log(children[childIndex]);
             if (parseInt(childIndex)) {
                 var currElement = children[childIndex];
-                currElement.style.backgroundColor = decrementLightness(topColor, parseInt(childIndex) * 0.1);
+                currElement.style.backgroundColor = incrementLightness(topColor, parseInt(childIndex));
             }
         }
     }
 }
-function decrementLightness(colorString, percent) {
+function incrementLightness(colorString, multiplier) {
     var r = parseInt(colorString.substring(4, colorString.indexOf(',')));
     var g = parseInt(colorString.substring(colorString.indexOf(',') + 1, colorString.lastIndexOf(',')));
     var b = parseInt(colorString.substring(colorString.lastIndexOf(',') + 1));
-    r = r * (1 + percent);
-    g = g * (1 + percent);
-    b = b * (1 + percent);
-    return "rgb(" + r + "," + g + "," + b + ")";
+    var rgb = [r, g, b];
+    for (var i in rgb) {
+        var index = parseInt(i);
+        rgb[index] += ((255 - rgb[index]) * 0.2 * multiplier);
+    }
+    return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 }
 window.onload = function () {
     document.getElementById('toggle-menu').onclick = function () {
