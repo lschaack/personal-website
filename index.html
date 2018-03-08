@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Luke Schaack</title>
+		<meta charset="UTF-8">
+		<link href="./styles/minesweeper.css" type="text/css" rel="stylesheet" />
+		<link href="./styles/general.css" type="text/css" rel="stylesheet" />
+		<script src="./scripts/general.js" type="text/javascript"></script>
+		<script src="./scripts/game.js" type="text/javascript"></script>
+		<script src="./scripts/ms.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<div id="toggle-menu"><p>↑</p></div> <!-- ↑↓ -->
+		<div class="header"><p>this is the header thank you</p></div>
+		<div class="menu open" id="menu"> <!-- this should probably be an unordered list -->
+			<div class="menu-container"><div class="item"><p>?</p></div><div class="option"><p>About</p>
+			</div></div>
+			<div class="menu-container"><div class="item"><p>♠</p></div><div class="option"><p class="sub-option">Games</p>
+																							<p class="sub-option">Minesweeper</p>
+																							<p class="sub-option">Maze Solver</p>
+																							<p class="sub-option">Tic-Tac-Toe</p>
+			</div></div>
+			<div class="menu-container"><div class="item"><p>¶</p></div><div class="option"><p class="sub-option">Skills/Hobbies</p>
+																							<p class="sub-option">Writing</p>
+																							<p class="sub-option">Piano</p>
+																							<p class="sub-option">eh?</p>
+			</div></div>
+			<div class="menu-container"><div class="item"><p>⋮</p></div><div class="option"><p class="sub-option">Something else?</p>
+																							<p class="sub-option">Could be...</p>
+																							<p class="sub-option">More even?</p>
+																							<p class="sub-option">Who knows</p>
+																							<p class="sub-option">Never ends</p>
+																							<p class="sub-option">Keeps coming</p>
+																							<p>More still</p>
+																							<p>Won't stop</p>
+																							<p>Can't think</p>
+																							<p>Of anything</p>
+																							<p>More to say</p>
+																							<p>But I want it</p>
+																							<p>To have to</p>
+																							<p>Scroll</p>
+																							<p>Really far</p>
+			</div></div>
+			<div class="menu-container"><div class="item"><p>⋯</p></div><div class="option"><p>Resume</p>
+			</div></div>
+		</div>
+		<div class="main">
+			<div id="game-area">
+				<div id="game-header">
+					<div class="settings-dropdown">
+						<span>≡</span> <!-- all decent possibilities: ⋮, ⋯, ≡, ≣ -->
+						<div class="settings-content">
+							<div><p>Width:</p> <input type="number" id="width" name="width" min="7", max="40", value="16"></div>
+							<div><p>Height:</p> <input type="number" id="height" name="height" min="1", max="80", value="16"></div>
+							<div><p>Mines:</p> <input type="number" id="mines" name="mines" min="2", max="500", value="40"></div>
+						</div>
+					</div> 
+
+					<div id="info">
+						<div class="counter-container"><p class="counter" id="time-counter">000</p></div>
+						<div class="square" id="minesweeper-face"><p id="face">:|</p></div>
+						<div class="counter-container"><p class="counter" id="mine-counter">000</p></div>	
+					</div>
+
+					<div id="flag-mode"><p>⚐</p></div>
+				</div>
+				<div id="message" class="default"><p></p></div>
+				<div id="game-body" class="game"></div>
+			</div>
+		</div>
+	</body>
+</html>

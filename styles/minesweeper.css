@@ -1,0 +1,168 @@
+body {
+	/*background-color: #333333;*/
+	font-family: "Courier New", "Courier", monospace;
+}
+
+input {
+	font-size: 12pt;
+	width: 40px;
+	margin: 10px;
+}
+
+#game-area {
+	background-color: #bbb;
+	/* centering */
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+#message {
+	display: none;
+	border-left: 3px inset #bbb;
+	border-top: 3px inset #bbb;
+	box-sizing: border-box; /* in case I want to add a border later */
+}
+
+#message p {
+	color: #d00;
+	font-weight: bolder;
+	font-variant: small-caps;
+	/*text-shadow: 0px 0px 3px blue;*/
+	text-align: center;
+
+	margin: 0px;
+	padding: 5px;
+}
+
+/************** Game header **************/
+
+#game-header {
+	border: 3px outset #bbb;
+	
+	position: relative; /* for proper dropdown display */
+	padding-top: 10px;
+	padding-left: 3%;
+	padding-right: 3%;
+	height: 55px;
+	box-sizing: border-box; /* for making sure header stays within game area */
+}
+
+.settings-dropdown {
+	font-size: 20pt;
+	float: left;
+	height: 100%;
+	width: 15%;
+}
+
+.settings-content {
+	font-size: 12pt;
+
+	background-color: #bbb;
+	border: 3px ridge #777;
+
+	padding: 10px;
+	position: absolute;
+	left: -0.3%;
+	z-index: 2; /* so win-message doesn't overlap */
+	display: none;
+}
+
+.settings-content div {
+	clear: left;
+}
+
+.settings-content p {
+	float: left;
+}
+
+.settings-dropdown:hover .settings-content {
+	display: block;
+}
+
+#info {
+	/* centering */
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* begin info inner */
+.counter-container {
+	background-color: black;
+	float: left;
+	height: 30px;
+}
+
+.counter {
+	font-size: 20px;
+	text-align: center;
+	color: red;
+	margin: 3px;
+}
+
+#minesweeper-face {
+	box-sizing: border-box;
+}
+
+#face {
+	font-size: 12pt;
+	line-height: 10pt;
+	text-align: center;
+
+	margin: 0px;
+	margin-top: 5px;
+	pointer-events: none;
+}
+
+/* end info inner */
+
+#flag-mode {
+	float: right;
+}
+
+#flag-mode p {
+	font-size: 20pt;
+
+	margin: 0px;
+	line-height: 24pt;
+}
+
+/************** Game space ***************/
+
+.row {
+	float: left;
+	clear: both;
+}
+
+.square {
+	/* styling */
+	text-align: center;
+	vertical-align: middle;
+	font-size: 20pt;
+	font-weight: bold;
+	line-height: 30px;
+
+	border: 3px outset #bbb;
+
+	/* display */
+	height: 30px;
+	width: 30px;
+	float: left;
+}
+
+.square:active {
+	border: 3px inset #bbb;
+}
+
+.revealed {
+	border-top: 3px solid #777;
+	border-left: 3px solid #777;
+	border-bottom: 3px solid #bbb;
+	border-right: 3px solid #bbb;
+}
+
+.exploded {
+	background-color: #d00;
+	border: 3px inset #bbb;
+}
