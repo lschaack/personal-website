@@ -11,17 +11,11 @@ module.exports = {
 	resolve: {
 		extensions: ['.ts', '.js']
 	},
-
-	node: {
-		fs: 'empty',
-		net: 'empty'
-	},
-
+	
 	module: {
 		rules: [
 			{
 				test: /\.ts$/,
-				// exclude: [/node_modules/],
 				loader: 'ts-loader'
 			}
 		]
