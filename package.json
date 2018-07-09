@@ -1,0 +1,19 @@
+{
+  "name": "personal_website",
+  "version": "0.0.1",
+  "description": "A website to serve as a dynamic and presentable resume",
+  "main": "common.js",
+  "dependencies": {
+    "ts-loader": "^4.4.2",
+    "webpack": "^4.15.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.0.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Lucas Sergio Jerome Schaack",
+  "license": "ISC"
+}
