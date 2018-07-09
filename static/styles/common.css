@@ -9,20 +9,21 @@ body {
 .header {
 	border-bottom: 1px solid darkgrey;
 
-	height: 8vh;
-	width: 80vw;
-	margin-left: 1vw;
-	padding-left: 4vw; /* to nicely place the border on .header p */
+	height: 65px;
+	/* max-width for left border */
+	max-width: 1200px;
+	/* TODO: add min-width for resizing? */
+	margin-left: 15px;
+	padding-left: 60px; /* to nicely place the border on .header p */
 }
 
 .header p {
-	font-size: 3vw;
-
-	height: 8vh;
-	padding-left: 2vw;
-	line-height: 4vw;
-	margin: 0px;
-	margin-top: 2vh;
+	font-size: 2.5em;
+	/* here, height is necessary for tight spacing on left border */
+	height: 65px;
+	padding-left: 30px;
+	line-height: 60px;
+	margin-top: 20px;
 	border-left: 1px solid darkgrey;
 }
 
@@ -30,46 +31,37 @@ body {
 	background-color: darkgrey;
 
 	float:left;
-	margin-top: 2vh;
+	margin-top: 20px;
 }
 
+/* the arrow */
 #toggle-menu {
 	position: absolute;
-	left: 1vw;
-	top: 2vh;
-	width: 4vw;
+	left: 15px;
+	top: 20px;
+	width: 60px;
 }
 
 #toggle-menu p {
 	text-align: center;
 	margin: 0px;
-	font-size: 3vw;
-	height: 8vh;
-}
-
-.menu {
-	margin: 0px;
-	float: left;
-	width: 16vw;
-	top: 2vh;
-	overflow: hidden;
+	font-size: 2.5em;
 }
 
 .menu a {
+	/* for getting rid of the standard blue underline for links */
 	text-decoration: none;
 	color: black; /* TODO: different styles to indicate category and link? */
 }
 
-.menu.open {
-	height: 80vh;
+/* TODO: make a ".menu p" style so category headers look different  */
 
+.menu.open {
 	-webkit-transition: height 0.5s ease-in;
 	transition: height 0.5s ease-in;
 }
 
 .menu.closed {
-	height: 0vh;
-
 	-webkit-transition: height 0.5s ease-out;
 	transition: height 0.5s ease-out;
 }
@@ -77,9 +69,10 @@ body {
 .menu-container {
 	float: left;
 	clear: left;
-	height: 4vw;
-	min-width: 4vw;
-	margin-left: 1vw;
+	/* necessary for dropdown not shoving lower items down */
+	height: 60px;
+	min-width: 60px;
+	margin-left: 15px;
 
 	overflow-x: visible;
 	white-space: nowrap;
@@ -87,14 +80,13 @@ body {
 
 .item {
 	float: left;
-	height: 4vw;
-	width: 4vw;
-	line-height: 0vw; /* for better centering */
+	width: 60px;
+	line-height: 0px; /* for better centering */
 }
 
 .option-container {
 	float: left;
-	height: 4vw;
+	height: 60px;
 
 	overflow: hidden;
 	width: 1px; /* show a bit of color */
@@ -103,39 +95,36 @@ body {
 	transition: width 0.2s ease-out, height 0.2s ease-out;
 }
 
-.option-container:first-child {
-	margin-top: 10vw;
-}
-
 .option, .sub-option {
-	width: 10vw;
+	width: 150px;
 	display: block;
 	float: left;
 	text-align: center;
-	margin-top: 0vw;
-	margin-bottom: 0vw;
-	line-height: 4vw;
-	font-size: 1vw;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	line-height: 60px;
+	font-size: 1em;
 }
 
 .option {
 	display: block;
-	height: 4vw;
+	height: 60px;
 }
 
 .sub-option {
-	height: 4vw;
+	height: 60px;
 }
 
 .item:hover + .option-container {
 	border-left: none;
-	width: 10vw;
+	width: 150px;
 }
 
 .option-container:hover {
 	border-left: none;
-	width: 10vw;
-	height: 16vw; /* assumes max of 3 items */
+	width: 150px;
+	/* below seems to be the only setting that works...TODO */
+	height: 16em; /* assumes max of 3 items */
 }
 
 .item p, .option p, .sub-option p {
@@ -144,7 +133,7 @@ body {
 }
 
 .item p {
-	font-size: 2vw;
+	font-size: 2em;
 }
 
 #first-option { background-color: rgb(217, 43, 0) }
