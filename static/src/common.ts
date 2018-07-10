@@ -45,18 +45,35 @@ function incrementLightness(colorString: string, multiplier: number) {
 
 function toggleMenu() {
 	let menu = document.getElementById('menu');
+	let main = document.querySelector('.main');
 
 	if (menu.classList.contains('open')) {
 		// hide menu
 		menu.classList.remove('open');
 		menu.classList.add('closed');
+		// tell main to slide over
+		main.classList.remove('open');
+		main.classList.add('closed');
 		(this.firstChild as HTMLElement).innerHTML = DOWN_ARROW;
 	} else {
 		// show menu
 		menu.classList.remove('closed');
 		menu.classList.add('open');
+		// tell main to slide over
+		main.classList.remove('closed');
+		main.classList.add('open');
 		(this.firstChild as HTMLElement).innerHTML = UP_ARROW;
 	}
+}
+
+// Fetches data at the provided URL and runs the provided function when loaded
+// type arg should be one of "GET" or "POST"
+// TODO: add a check for the above comment
+function fetch(url: string, onloadFunction: () => HTMLElement, type: string) {
+	var ajax = new XMLHttpRequest();
+	ajax.onload = onloadFunction;
+	ajax.open(type, url, true);
+	ajax.send();
 }
 
 window.onload = function() {

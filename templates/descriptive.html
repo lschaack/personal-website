@@ -9,7 +9,7 @@
 
 	<body class="writing">
 		{% include 'menu.html' %}
-		<div class="main">
+		<div class="main open">
             <embed src="{{ url_for('static', filename='pdfs/separation.pdf') }}" height="900px" width="1200px" type='application/pdf'>
             <p>For browsers that don't support embedded pdfs, here is a link to download: </p>
             <a href="{{ url_for('static', filename='pdfs/separation.pdf') }}">Download PDF</a>

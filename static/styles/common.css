@@ -2,16 +2,32 @@ body {
 	font-family: "Lato", "Open Sans", "Roboto", sans-serif;
 	font-weight: lighter;
 	background-color: ghostwhite; 
+	position: relative;
 	padding: 0px;
 	margin: 0px;
+}
+
+.main.open {
+	left: 90px;
+
+	-webkit-transition: left 0.3s ease-out;
+	transition: left 0.3s ease-out;
+}
+
+.main.closed {
+	left: 45px;
+
+	-webkit-transition: left 0.5s ease-in-out;
+	-webkit-transition-delay: 0.5s;
+	transition: left 0.5s ease-in-out;
+	transition-delay: 0.5s;
 }
 
 /* Main is everything except the menu */
 .main {
 	position: absolute;
 	float:left;
-	top: 100px;
-	left: 90px;
+	top: 80px;
 	margin-bottom: 50px;
 }
 
@@ -47,7 +63,7 @@ body {
 	/* this static height will need to be increased if adding more categories */
 	height: 30em;
 	overflow: hidden;
-	/* TODO: make this animation work again? */
+
 	-webkit-transition: height 0.5s ease-in;
 	transition: height 0.5s ease-in;
 }
@@ -64,7 +80,7 @@ body {
 #toggle-menu {
 	position: absolute;
 	left: 15px;
-	top: 20px;
+	top: 0px;
 	width: 60px;
 }
 
