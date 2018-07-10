@@ -1,5 +1,5 @@
 export module Tilegame {
-	export const SQUARE_WIDTH_PX: number = 36; // 30 for square plus 6 for border on either side
+	export const SQUARE_WIDTH_PX: number = 30;
 
 	/* A class through which to grab mines, mostly for better-abstracted indexing */
 	export class Board {

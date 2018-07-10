@@ -4,6 +4,8 @@
   "description": "A website to serve as a dynamic and presentable resume",
   "main": "common.js",
   "dependencies": {
+    "angular": "^1.7.2",
+    "npm": "^6.1.0",
     "ts-loader": "^4.4.2",
     "webpack": "^4.15.1"
   },

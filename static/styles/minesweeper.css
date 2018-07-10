@@ -7,16 +7,12 @@ input {
 #game-area {
 	font-family: "Courier New", "Courier", monospace;
 	background-color: #bbb;
-	/* centering */
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
 }
 
 #message {
 	display: none;
-	border-left: 3px inset #bbb;
-	border-top: 3px inset #bbb;
+	border-left: 3px outset #eee;
+	border-top: 3px outset #eee;
 	box-sizing: border-box; /* in case I want to add a border later */
 }
 
@@ -35,6 +31,8 @@ input {
 
 #game-header {
 	border: 3px outset #bbb;
+	border-left: 3px solid #eee;
+	border-top: 3px solid #eee;
 	
 	position: relative; /* for proper dropdown display */
 	padding-top: 10px;
@@ -60,7 +58,7 @@ input {
 	padding: 10px;
 	position: absolute;
 	left: -0.3%;
-	z-index: 2; /* so win-message doesn't overlap */
+	z-index: 1; /* so win-message doesn't overlap */
 	display: none;
 }
 
@@ -140,6 +138,10 @@ input {
 	line-height: 30px;
 
 	border: 3px outset #bbb;
+	border-left: 3px solid #eee;
+	border-top: 3px solid #eee;
+	background-color: #bbb;
+	box-sizing: border-box;
 
 	/* display */
 	height: 30px;
@@ -178,8 +180,4 @@ input {
 
 .set-button:active {
 	border: 3px inset #bbb;
-}
-
-#set-start {
-	z-index: 2;
 }

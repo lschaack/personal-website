@@ -6,12 +6,20 @@ body {
 	margin: 0px;
 }
 
+/* Main is everything except the menu */
+.main {
+	position: absolute;
+	float:left;
+	top: 100px;
+	left: 90px;
+	margin-bottom: 50px;
+}
+
 .header {
 	border-bottom: 1px solid darkgrey;
 
 	height: 65px;
-	/* max-width for left border */
-	max-width: 1200px;
+	max-width: 75em; /* for bottom border */
 	/* TODO: add min-width for resizing? */
 	margin-left: 15px;
 	padding-left: 60px; /* to nicely place the border on .header p */
@@ -27,11 +35,29 @@ body {
 	border-left: 1px solid darkgrey;
 }
 
-.main {
-	background-color: darkgrey;
+.menu a {
+	/* for getting rid of the standard blue underline for links */
+	text-decoration: none;
+	color: black; /* TODO: different styles to indicate category and link? */
+}
 
-	float:left;
-	margin-top: 20px;
+/* TODO: make a ".menu p" style so category headers look different  */
+
+.menu.open {
+	/* this static height will need to be increased if adding more categories */
+	height: 30em;
+	overflow: hidden;
+	/* TODO: make this animation work again? */
+	-webkit-transition: height 0.5s ease-in;
+	transition: height 0.5s ease-in;
+}
+
+.menu.closed {
+	height: 0em;
+	overflow: hidden;
+
+	-webkit-transition: height 0.5s ease-out;
+	transition: height 0.5s ease-out;
 }
 
 /* the arrow */
@@ -46,24 +72,6 @@ body {
 	text-align: center;
 	margin: 0px;
 	font-size: 2.5em;
-}
-
-.menu a {
-	/* for getting rid of the standard blue underline for links */
-	text-decoration: none;
-	color: black; /* TODO: different styles to indicate category and link? */
-}
-
-/* TODO: make a ".menu p" style so category headers look different  */
-
-.menu.open {
-	-webkit-transition: height 0.5s ease-in;
-	transition: height 0.5s ease-in;
-}
-
-.menu.closed {
-	-webkit-transition: height 0.5s ease-out;
-	transition: height 0.5s ease-out;
 }
 
 .menu-container {
@@ -112,6 +120,8 @@ body {
 }
 
 .sub-option {
+	position: relative;
+	z-index: 10;
 	height: 60px;
 }
 
@@ -128,6 +138,7 @@ body {
 }
 
 .item p, .option p, .sub-option p {
+	z-index: 100;
 	transform: translateY(-30%);
 	text-align: center;
 }

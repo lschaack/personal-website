@@ -4,20 +4,15 @@
 		<title>Luke Schaack</title>
 		<meta charset="UTF-8">
 		<link href="{{ url_for('static', filename='styles/common.css') }}" type="text/css" rel="stylesheet" />
-		<link href="{{ url_for('static', filename='styles/about.css') }}" type="text/css" rel="stylesheet" />
 		<script src="{{ url_for('static', filename='dist/bundle.js') }}" type="text/javascript"></script>
 	</head>
 
-	<body>
+	<body class="writing">
 		{% include 'menu.html' %}
 		<div class="main">
-			<div id="basic-info">
-				<h1>About Me</h1>
-				<p>hello this is loop</p>
-				<!-- <p>m/21/boulder,CO</p>
-				<p>m/21/boulder,CO</p> -->
-			</div>
-			<img src="{{ url_for('static', filename='images/me.jpg') }}">
+            <embed src="{{ url_for('static', filename='pdfs/separation.pdf') }}" height="900px" width="1200px" type='application/pdf'>
+            <p>For browsers that don't support embedded pdfs, here is a link to download: </p>
+            <a href="{{ url_for('static', filename='pdfs/separation.pdf') }}">Download PDF</a>
 		</div>
 	</body>
 </html>

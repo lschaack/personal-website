@@ -43,27 +43,31 @@ function incrementLightness(colorString: string, multiplier: number) {
 	return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 }
 
-window.onload = function() {
-	document.getElementById('toggle-menu').onclick = function() {
-		let menu = document.getElementById('menu');
+function toggleMenu() {
+	let menu = document.getElementById('menu');
 
-		if (menu.classList.contains('open')) {
-			// hide menu
-			menu.classList.remove('open');
-			menu.classList.add('closed');
-			(this.firstChild as HTMLElement).innerHTML = DOWN_ARROW;
-		} else {
-			// show menu
-			menu.classList.remove('closed');
-			menu.classList.add('open');
-			(this.firstChild as HTMLElement).innerHTML = UP_ARROW;
-		}
-	};
+	if (menu.classList.contains('open')) {
+		// hide menu
+		menu.classList.remove('open');
+		menu.classList.add('closed');
+		(this.firstChild as HTMLElement).innerHTML = DOWN_ARROW;
+	} else {
+		// show menu
+		menu.classList.remove('closed');
+		menu.classList.add('open');
+		(this.firstChild as HTMLElement).innerHTML = UP_ARROW;
+	}
+}
+
+window.onload = function() {
+	document.getElementById('toggle-menu').onclick = toggleMenu;
 
 	doPrettyColors();
 
 	// Load minesweeper if we're on the correct page
-	if (document.querySelector("body").className == "minesweeper") {
+	if (document.querySelector('body').className == 'minesweeper') {
 		Minesweeper.minesweeperSetup();
+	} else if (document.querySelector('body').className == 'writing') {
+		console.log('inside conditional');
 	}
 }
