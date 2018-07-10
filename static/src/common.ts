@@ -5,6 +5,7 @@ const DOWN_ARROW: string = '↓';
 
 /* Assuming the base color of each .sub-element is already set in hsl, desaturate
  * that color progressively for each child of that element */
+// TODO: make this work on safari
 function doPrettyColors() {
 	let ids = ["first", "second", "third", "fourth", "fifth"];
 
@@ -77,6 +78,7 @@ function fetch(url: string, onloadFunction: () => HTMLElement, type: string) {
 }
 
 window.onload = function() {
+	document.getElementById('toggle-menu').onclick = toggleMenu;
 	document.getElementById('toggle-menu').onclick = toggleMenu;
 
 	doPrettyColors();

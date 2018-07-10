@@ -11,6 +11,19 @@
 	<body class="minesweeper">
 		{% include 'menu.html' %}
 		<div class="main open">
+			<div id="explanation">
+				<h2>Client-side Minesweeper</h2>
+				<p>The many options which show up if you google "minesweeper" share a single common trait: they're terrible.</p>
+				<p>Most options are only resizeable in the most pixellated sense, many don't have a flag mode, some have just three difficulty settings. One version waits for fully 15 seconds "while your game loads." It's baffling.</p>
+				<p>My version is simple, adjustable, smoothly resizeable for sweet 4k minesweeper, and totally client-side so it's fast as can be (with a reasonable number of squares). It's also written entirely in Typescript, which was my motivator for starting the project, as I had previously only used plain JS for scripting.</p>
+				<p>If somebody on this page is playing Minesweeper for the first time, the rules are pretty simple: click on a square to reveal its state: a square is either totally empty, surrounded by at least one mine (in which case it will show the number of surrounding mines), or itself a mine. If you know or believe a flag is a mine, right click on it to set a flag. If a mine is clicked on accident, you lose; if you flag all mines without ever touching one, you win!</p>
+				<strong>To use: </strong></br>
+				<strong>* Mouse over the hamburger menu to adjust board size and mine density, then click the face to reset after choosing the desired settings.</strong></br>
+				<strong>* Left click reveals a square, right click sets a flag.</strong></br>
+				<strong>* If a number is left-clicked directly while surrounded by that same number of flags, all un-flagged surrounding squares will be clicked automatically––this can lose the game for you, so watch out!</strong></br>
+				<strong>* Click the flag for flag mode. In this mode, both right and left click set flags so you never accidentally hit a mine. Open new spaces by the above method of clicking numbers, but make sure there are already some open numbers to click before entering this mode.</strong>
+			</div>
+			</br>
 			<!-- all decent possibilities for dropdown symbol: ⋮, ⋯, ≡, ≣ -->
 			<div id="game-area">
 				<div id="game-header">

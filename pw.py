@@ -9,6 +9,7 @@ ALLOWED_EXTENSIONS = set(['txt']) # in case I want to add more later
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 # 50kb
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -54,7 +55,6 @@ def minesweeper():
 def mockingbird():
     if request.method == 'POST':
         # TODO: add a selection of existing files
-        print('\n\n\n{}\n\n\n'.format(request.form))
         ### grab file, first part directly from:
         ###    http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
         # check if the post request has the file part

@@ -28,7 +28,9 @@ body {
 	position: absolute;
 	float:left;
 	top: 80px;
+	margin-left: 15px;
 	margin-bottom: 50px;
+	max-width: 75em; /* for bottom border */
 }
 
 .header {
@@ -49,6 +51,11 @@ body {
 	line-height: 60px;
 	margin-top: 20px;
 	border-left: 1px solid darkgrey;
+}
+
+.header a {
+	text-decoration: none;
+	color: black;
 }
 
 .menu a {
@@ -153,14 +160,26 @@ body {
 	height: 16em; /* assumes max of 3 items */
 }
 
-.item p, .option p, .sub-option p {
-	z-index: 100;
+.item p, .option p, .sub-option p, h3 {
+	z-index: 10;
 	transform: translateY(-30%);
 	text-align: center;
 }
 
 .item p {
 	font-size: 2em;
+}
+
+h3 {
+	line-height: 60px;
+}
+
+.sub-option a {
+	display: block;
+}
+
+strong {
+	line-height: 1.5em;
 }
 
 #first-option { background-color: rgb(217, 43, 0) }
