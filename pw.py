@@ -102,3 +102,7 @@ def rhetorical():
 @app.route('/descriptive/')
 def descriptive():
     return render_template('descriptive.html')
+
+@app.route('/resume/')
+def resume():
+    return render_template('resume.html')
