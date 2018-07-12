@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
+	{% include 'head.html' %}
 	<head>
-		<title>Luke Schaack</title>
-		<meta charset="UTF-8">
-		<link href="{{ url_for('static', filename='styles/common.css') }}" type="text/css" rel="stylesheet" />
 		<link href="{{ url_for('static', filename='styles/about.css') }}" type="text/css" rel="stylesheet" />
-		<script src="{{ url_for('static', filename='dist/bundle.js') }}" type="text/javascript"></script>
 	</head>
 
 	<body>
 		{% include 'menu.html' %}
 		<div class="main open">
 			<div id="basic-info">
-				<h1>About Me</h1>
-				<p>hello this is loop</p>
-				<!-- <p>m/21/boulder,CO</p>
-				<p>m/21/boulder,CO</p> -->
+				<h1>Hello!</h1>
+				<p>This website is essentially a portfolio, so if you're not here
+					to consider employing me I don't know why you would be.</p>
+				<h1>Bio</h1>
+				<p>
+					I am a recent graduate of the University of Colorado with a BA
+					in Computer Science, focusing on data science involving statistics
+					with linear algebra. I can also kill a pint of Ben and Jerry's
+					in a half hour, but nobody ever asks about that.
+				</p>
+				
 			</div>
 			<img src="{{ url_for('static', filename='images/me.jpg') }}">
 		</div>

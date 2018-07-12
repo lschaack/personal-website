@@ -9,7 +9,7 @@ ALLOWED_EXTENSIONS = set(['txt']) # in case I want to add more later
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 # 50kb
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 # 100kb
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -48,6 +48,11 @@ def index():
 @app.route('/minesweeper/')
 def minesweeper():
     return render_template('minesweeper.html')
+
+# gliding flight simulator #
+@app.route('/simpleflight/')
+def simpleflight():
+    return render_template('simpleflight.html')
 
 # text mimicker
 # this one needs to accept files to mimic, as well as arguments for generation

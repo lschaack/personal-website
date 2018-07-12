@@ -1,0 +1,24 @@
+img {
+    height: 283px;
+    width: 480px;
+    margin: 0px;
+    padding: 0px;
+}
+
+code {
+    font-family: monospace;
+    font-size: 1.1em;
+    margin-left: 2em;
+    /* for some reason, setting line-height below to any value creates a
+    small, flat change in effective line height. */
+    line-height: 99%;
+}
+
+#image-container {
+    height: 570px;
+    width: 965px;
+    /* float: left; */
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}

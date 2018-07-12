@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{% include 'head.html' %}
+	<head>
+			<link href="{{ url_for('static', filename='styles/simpleflight.css') }}" type="text/css" rel="stylesheet" />
+	</head>
+
+	<body>
+		{% include 'menu.html' %}
+
+		<div class="main open">
+			<div id="explanation">
+				<h2>A simple scene with simulated gliding physics, written in C using OpenGL/GLUT</h2>
+				<p>
+					Written as an open-ended final project for a graphics class,
+					this was intended as a small demonstration of dynamic lighting
+					and manual object modelling, but I'm also proud of the linear
+					algebra functions on lines 141 to 247 of "sf.c". These functions
+					serve both to do the math required for keeping track of the
+					location and heading of the airplane, and to apply the modelled
+					physical forces on the plane ("physics_update()" on 1774-1833)
+					in the correct directions, and which in my opinion express the
+					underlying math very clearly.
+				</p>
+				<p>
+					The github repo can be found
+					<a href=https://github.com/lschaack/simple-flight>here</a>,
+					and there is a link to directly download
+					<a href="{{ url_for('static', filename='simpleFlight.zip') }}">here</a>.
+				</p>
+				<p>
+					<strong>To use:</strong></br>
+					<strong>* Unzip simpleFlight.zip into any directory</strong></br>
+					<strong>* From the terminal, navigate to that directory and type (ignoring '$')</strong></br>
+					<code>$ make</code></br>
+					<code>$ ./sf</code></br>
+					<strong>or just</strong></br>
+					<code>$ ./run.sh</code></br>
+					<strong>* Move the plane with the mouse, and tap space once or twice
+						if you need a "push" to climb a little higher! Additional controls
+						are in the README.</strong></br>
+				</p>
+			</div>
+
+			<div id="image-container">
+				<img src="{{ url_for('static', filename='images/scene.png') }}">
+				<img src="{{ url_for('static', filename='images/traffic-light.png') }}">
+				<img src="{{ url_for('static', filename='images/window.png') }}">
+				<img src="{{ url_for('static', filename='images/furniture.png') }}">
+			</div>
+		</div>
+	</body>
+</html>

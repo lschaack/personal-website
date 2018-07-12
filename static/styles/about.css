@@ -1,10 +1,13 @@
 img {
-    float: left;
+    position: absolute;
+    right: -18em;
+    top: 1em;
     height: 20em;
     width: 20em;
 }
 
 #basic-info {
     float: left;
-    width: 54em;
+    width: 52em;
+    padding-right: 3em;
 }

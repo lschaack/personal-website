@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Luke Schaack</title>
-		<meta charset="UTF-8">
-		<link href="{{ url_for('static', filename='styles/common.css') }}" type="text/css" rel="stylesheet" />
-		<script src="{{ url_for('static', filename='dist/bundle.js') }}" type="text/javascript"></script>
-	</head>
+	{% include 'head.html' %}
 
 	<body>
 		{% include 'menu.html' %}
 		<div class="main open">
 			<div id="explanation">
-				<h2>Submit your story and gaze in disbelief as garbled nonsense in the vague shape of a sentence is produced in exact accordance with the language of the input text!</h2>
-				<p>The results are not exactly convincing, but the output can be pretty funny sometimes––think early /r/subredditsimulator.</p>
-				<p>Under the hood, this processor (github repo <a href=https://github.com/lschaack/grammar>here</a>) uses tags from the NLTK library to construct a tree representing the structure of every sentence within the input text.</p>
-				<p>When asked to generate a sentence, the processor steps down from the root of the tree, making random choices at each branch (that is, which part of speech to choose next) and finds an entry within a dictionary of words matching the chosen part of speech to append to the sentence. When a leaf node is encountered, the sentence is terminated with a period, and the entire process repeated as many times as requested.</p>
+				<h2>Submit your story and gaze in disbelief as garbled nonsense
+					in the vague shape of a sentence is produced in exact accordance
+					with the language of the input text!</h2>
+				<p>
+					The results are not exactly convincing, but the output can be
+					pretty funny sometimes––think early /r/subredditsimulator.
+				</p>
+				<p>
+					Under the hood, this processor (github repo 
+					<a href=https://github.com/lschaack/grammar>here</a>)
+					uses tags from the NLTK library to construct a tree 
+					representing the structure of every sentence within
+					the input text.
+				</p>
+				<p>
+					When asked to generate a sentence, the processor steps down from
+					the root of the tree, making random choices at each branch (that
+					is, which part of speech to choose next) and finds an entry within
+					a dictionary of words matching the chosen part of speech to append
+					to the sentence. When a leaf node is encountered, the sentence is
+					terminated with a period, and the entire process repeated as many
+					times as requested.
+				</p>
 				<strong>To use:</strong></br>
-				<strong>* Choose a fairly small text file to upload––the limit is set at 50kb, which tends to produce the best results anyway––select the number of sentences to generate, press upload, and wait!</strong>
+				<strong>* Choose a fairly small text file to upload––the limit is set
+					at 100kb, which tends to produce the best results anyway</strong></br>
+				<strong>* Select the number of sentences to generate (between 10 and 100)</strong></br>
+				<strong>* Press upload</strong></br>
+				<strong>* Wait!</strong></br>
 			</div>
 
-            <h2>Upload new file (limit 50 kilobytes)</h2>
+            <h2>Upload new file (limit 100 kilobytes)</h2>
             <form method=post enctype=multipart/form-data>
             <input type=file name=file>
 			<input type=number name=repeat id="repeat"
-                   placeholder="# sentences in [10, 100]"
+                   placeholder="[10, 100]"
                    min=10 max=100 step=1>
             <input type=submit value=Upload>
 			</form>
