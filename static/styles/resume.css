@@ -7,3 +7,9 @@ img {
     width: 1020px;
     margin-top: 3.5em;
 }
+
+img + a {
+    display: block;
+    margin-top: 2em;
+    margin-bottom: 5em;
+}

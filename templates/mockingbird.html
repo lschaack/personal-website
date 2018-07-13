@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 	{% include 'head.html' %}
+	<head>
+		<link href="{{ url_for('static', filename='styles/mockingbird.css') }}" type="text/css" rel="stylesheet" />
+	</head>
 
 	<body>
 		{% include 'menu.html' %}
@@ -11,7 +14,7 @@
 					with the language of the input text!</h2>
 				<p>
 					The results are not exactly convincing, but the output can be
-					pretty funny sometimes––think early /r/subredditsimulator.
+					pretty funny sometimes—think early /r/subredditsimulator.
 				</p>
 				<p>
 					Under the hood, this processor (github repo 
@@ -30,7 +33,7 @@
 					times as requested.
 				</p>
 				<strong>To use:</strong></br>
-				<strong>* Choose a fairly small text file to upload––the limit is set
+				<strong>* Choose a fairly small text file to upload—the limit is set
 					at 100kb, which tends to produce the best results anyway</strong></br>
 				<strong>* Select the number of sentences to generate (between 10 and 100)</strong></br>
 				<strong>* Press upload</strong></br>
@@ -46,12 +49,14 @@
             <input type=submit value=Upload>
 			</form>
 			
-			{% if sentences: %}
-			<h1>Results:</h1>
-				{% for sentence in sentences: %}
-				<p>{{ sentence }}</p>
-				{% endfor %}
-			{% endif %}
+			<div id="results">
+				{% if sentences: %}
+				<h1>Results:</h1>
+					{% for sentence in sentences: %}
+					<p>{{ sentence }}</p>
+					{% endfor %}
+				{% endif %}
+			</div>
 		</div>
 	</body>
 </html>

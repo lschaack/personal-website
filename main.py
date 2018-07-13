@@ -39,6 +39,7 @@ def generate(processed, repeat):
         generated.append(sentence[:1].title() + sentence[1:] + '.')
     return generated
 
+########## About ##########
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -103,6 +104,12 @@ def rhetorical():
 def descriptive():
     return render_template('descriptive.html')
 
+########## Contact ##########
+@app.route('/donottouch/')
+def donottouch():
+    return render_template('donottouch.html')
+
+########## Resume ##########
 @app.route('/resume/')
 def resume():
     return render_template('resume.html')

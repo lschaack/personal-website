@@ -230,12 +230,14 @@ export module Minesweeper {
 			}
 
 			// set style for everything to fit together nicely
-			let nPix = this.width * Tilegame.SQUARE_WIDTH_PX;
+			let nPixWide = this.width * Tilegame.SQUARE_WIDTH_PX;
+			let nPixHigh = this.height * Tilegame.SQUARE_WIDTH_PX + 55; // + 55 for header
 			let gameArea = <HTMLElement> document.getElementById('game-area');
-			gameArea.style.width = nPix + "px";
+			gameArea.style.width = nPixWide + "px";
+			gameArea.style.height = nPixHigh + "px";
 			let message = <HTMLElement> document.getElementById('message').firstChild;
 			// Start pretty big, get bigger but not by that much much
-			message.style.fontSize = 1 + 0.005 * nPix + 'em';
+			message.style.fontSize = 1 + 0.005 * nPixWide + 'em';
 			setFace('|:');
 		}
 

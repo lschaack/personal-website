@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	{% include 'head.html' %}
+	<head>
+		<link href="{{ url_for('static', filename='styles/donottouch.css') }}" type="text/css" rel="stylesheet" />
+
+	<body>
+		{% include 'menu.html' %}
+		<div class="main open">
+            <img src="{{ url_for('static', filename='images/dnt.png') }}">
+        </div>
+	</body>
+</html>

@@ -1,6 +1,28 @@
-body {
-	font-family: "Lato", "Open Sans", "Roboto", sans-serif;
+/* In case the Lato web link doesn't work, maybe a local font will */
+@font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/open_sans/OpenSans-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+} @font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/open_sans/OpenSans-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+} @font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/open_sans/OpenSans-ExtraBold.ttf') format('truetype');
+	font-weight: bolder;
+	font-style: normal;
+} @font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/open_sans/OpenSans-Light.ttf') format('truetype');
 	font-weight: lighter;
+	font-style: normal;
+}
+
+body {
+	font-family: "Lato", "Open Sans", sans-serif;
 	background-color: ghostwhite; 
 	position: relative;
 	padding: 0px;
@@ -64,6 +86,11 @@ strong {
 .header a {
 	text-decoration: none;
 	color: black;
+}
+
+.footer {
+	min-height: 5em;
+	clear: left;
 }
 
 .menu a {

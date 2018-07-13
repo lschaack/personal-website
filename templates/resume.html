@@ -5,11 +5,11 @@
 		<link href="{{ url_for('static', filename='styles/resume.css') }}" type="text/css" rel="stylesheet" />
 	</head>
 
-	<body class="writing">
+	<body>
 		{% include 'menu.html' %}
 		<div class="main open">
-            <img src="{{ url_for('static', filename='images/resume-lucas.png') }}"><br><br>
+            <img src="{{ url_for('static', filename='images/resume-lucas.png') }}">
             <a href="{{ url_for('static', filename='pdfs/resume-lucas.pdf') }}">Download the PDF here</a>
-		</div>
+        </div>
 	</body>
 </html>
