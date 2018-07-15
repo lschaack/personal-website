@@ -183,12 +183,12 @@ strong {
 	height: 60px;
 }
 
-.item:hover + .option-container {
+.item:hover + .option-container, .item:active + .option-container {
 	border-left: none;
 	width: 150px;
 }
 
-.option-container:hover {
+.option-container:hover, .option-container:active {
 	border-left: none;
 	width: 150px;
 	/* below seems to be the only setting that works...TODO */

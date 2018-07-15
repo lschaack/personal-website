@@ -1,23 +1,61 @@
 from flask import url_for, render_template, Flask, request, redirect, flash
 from werkzeug.utils import secure_filename
 from grammar import grammar_processor, grammar_consts
+from google.appengine.api import app_identity
+from google.cloud import storage
+import cloudstorage as gcs
+import logging
 import sys
 import os
 
-UPLOAD_FOLDER = '/grammar/processed'
+# get Google Cloud Storage bucket
+DEFAULT_BUCKET = os.environ.get('BUCKET_NAME', app_identity.get_default_gcs_bucket_name())
 ALLOWED_EXTENSIONS = set(['txt']) # in case I want to add more later
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['CLOUD_STORAGE_BUCKET'] = DEFAULT_BUCKET
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 # 100kb
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def process(filename):
+def upload_txt_file(file):
+    ### grab file, first part largely from:
+    ###    http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
+
+    # check if the post request has the file part
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    # if user does not select file, browser will also
+    # submit an empty part without filename
+    elif file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    elif not allowed_file(file.filename):
+        return None
+    
+    # ensure safe filename
+    filename = secure_filename(file.filename)
+    logging.info("#" * 50)
+    logging.info("getting client")
+    storage_client = storage.Client()
+    logging.info("got client, getting bucket")
+    bucket = storage_client.get_bucket(DEFAULT_BUCKET)
+    logging.info("got bucket")
+    blob = bucket.blob(filename)
+    logging.info("made blob, uploading file %s", filename)
+
+    blob.upload_from_filename(filename)
+
+    logging.info("Uploaded file %s as %s.", filename, public_url)
+
+    return public_url
+
+def process(lines):
     # get formatted text
-    formatter = grammar_processor.Formatter(filename)
+    formatter = grammar_processor.Formatter(lines)
     formatted = formatter.get_formatted()
     # create the tree which will represent all sentence structures within text
     senTree = grammar_processor.SentenceTree()
@@ -61,30 +99,22 @@ def simpleflight():
 def mockingbird():
     if request.method == 'POST':
         # TODO: add a selection of existing files
-        ### grab file, first part directly from:
-        ###    http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser will also
-        # submit an empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            # ensure safe filename
-            filename = secure_filename(file.filename)
-            # temporarily save file
-            fullpath = os.path.dirname(sys.argv[0])[:-3] + filename
-            file.save(fullpath)
-            # get object representing processed text
-            processed = process(fullpath)
-            sentences = generate(processed, int(request.form['repeat']))
-            # get rid of the file so it doesn't clog up my system
-            os.remove(fullpath)
-            return render_template('mockingbird.html', sentences=sentences)
+        public_url = upload_txt_file(request.files['file'])
+
+        lines = [] # for scope
+
+        with gcs.open(public_url, 'r') as file:
+            logging.info("reading lines")
+            lines = file.readlines()
+        try:
+            gcs.delete(public_url)
+        except gcs.NotFoundError:
+            pass
+
+        # get object representing processed text
+        processed = process(lines)
+        sentences = generate(processed, int(request.form['repeat']))
+        return render_template('mockingbird.html', sentences=sentences)
     else:
         return render_template('mockingbird.html')
 

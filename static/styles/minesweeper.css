@@ -12,8 +12,9 @@ input {
 
 #message {
 	display: none;
-	border-left: 3px outset #eee;
-	border-top: 3px outset #eee;
+	border: 3px outset #bbb;
+	border-left: 3px solid #eee;
+	border-top: 3px solid #eee;
 	box-sizing: border-box; /* in case I want to add a border later */
 }
 
