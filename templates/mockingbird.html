@@ -12,11 +12,6 @@
 				<h2>Submit your story and gaze in disbelief as garbled nonsense
 					in the vague shape of a sentence is produced in exact accordance
 					with the language of the input text!</h2>
-				<h1>CURRENTLY NOT WORKING</h1>
-				<H4>Because of a conflict between the python version the script was
-					written in and the python version of the host API (App Engine),
-					the script won't run at the moment. Should be working soon.
-				</H4>
 				<p>
 					The results are not exactly convincing, but the output can be
 					pretty funny sometimes—think early /r/subredditsimulator.
@@ -39,7 +34,9 @@
 				</p>
 				<strong>To use:</strong></br>
 				<strong>* Choose a fairly small text file to upload—the limit is set
-					at 100kb, which tends to produce the best results anyway</strong></br>
+					at 100kb, which tends to produce the best results anyway. Unicode
+					and latin-1 encodings are handled directly, and other encodings
+					will likely work, but may show backslash-replaced characters.</strong></br>
 				<strong>* Select the number of sentences to generate (between 10 and 100)</strong></br>
 				<strong>* Press upload</strong></br>
 				<strong>* Wait!</strong></br>

@@ -16,3 +16,6 @@ libraries:
 
 skip_files:
 - ^node_modules$
+- ^env$
+- ^\.git.*$
+- ^nltk/\.git.*$

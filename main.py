@@ -2,19 +2,29 @@ from flask import url_for, render_template, Flask, request, redirect, flash
 from werkzeug.utils import secure_filename
 from grammar import grammar_processor, grammar_consts
 from google.appengine.api import app_identity
-from google.cloud import storage
+# from google.cloud import storage
 import cloudstorage as gcs
 import logging
+import codecs
 import sys
 import os
+os.environ["PYTHONIOENCODING"] = "utf-8"
+
+# # uncomment for debugging
+# try:
+#   import googleclouddebugger
+#   googleclouddebugger.enable()
+# except ImportError:
+#   pass
 
 # get Google Cloud Storage bucket
 DEFAULT_BUCKET = os.environ.get('BUCKET_NAME', app_identity.get_default_gcs_bucket_name())
 ALLOWED_EXTENSIONS = set(['txt']) # in case I want to add more later
+MAX_CONTENT_LENGTH = 100 * 1024 # 100kb
 
 app = Flask(__name__)
 app.config['CLOUD_STORAGE_BUCKET'] = DEFAULT_BUCKET
-app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 # 100kb
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -24,34 +34,37 @@ def upload_txt_file(file):
     ### grab file, first part largely from:
     ###    http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
 
-    # check if the post request has the file part
-    if 'file' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
     # if user does not select file, browser will also
     # submit an empty part without filename
-    elif file.filename == '':
+    if file.filename == '':
         flash('No selected file')
         return redirect(request.url)
     elif not allowed_file(file.filename):
         return None
-    
-    # ensure safe filename
+
     filename = secure_filename(file.filename)
-    logging.info("#" * 50)
-    logging.info("getting client")
-    storage_client = storage.Client()
-    logging.info("got client, getting bucket")
-    bucket = storage_client.get_bucket(DEFAULT_BUCKET)
-    logging.info("got bucket")
-    blob = bucket.blob(filename)
-    logging.info("made blob, uploading file %s", filename)
+    fullpath = '/{}/{}'.format(DEFAULT_BUCKET, filename)
 
-    blob.upload_from_filename(filename)
+    contents = file.read()
+    try:
+        contents = contents.decode('utf-8', 'backslashreplace')
+    except UnicodeEncodeError:
+        contents = contents.decode('iso-8859-1', 'backslashreplace')
 
-    logging.info("Uploaded file %s as %s.", filename, public_url)
+    write_retry_params = gcs.RetryParams(backoff_factor=1.1)
+    logging.info("Writing to /{}/{}".format(DEFAULT_BUCKET, filename))
+    gcs_file = gcs.open(
+        fullpath,
+        'w',
+        content_type='text/plain, charset=utf-8;',
+        retry_params=write_retry_params
+    )
+    gcs_file.write(contents.encode('utf-8', 'backslashreplace'))
+    gcs_file.close()
 
-    return public_url
+    logging.info("Uploaded file %s.", filename)
+
+    return fullpath
 
 def process(lines):
     # get formatted text
@@ -67,9 +80,11 @@ def generate(processed, repeat):
     generated = []
     for _ in range(repeat):
         sentence = processed.generate(processed.root).strip()
+
         for word in sentence.split():
-            if word in grammar_consts.ME:
-                sentence = sentence.replace(' ' + word + ' ', ' ' + word.title() + ' ')
+                if word in grammar_consts.ME:
+                    sentence = sentence.replace(' ' + word + ' ', ' ' + word.title() + ' ')
+        
         # join spaces on punctuation
         sentence = sentence.replace(' ,', ',')
         sentence = sentence.replace(' .', '.')
@@ -99,21 +114,31 @@ def simpleflight():
 def mockingbird():
     if request.method == 'POST':
         # TODO: add a selection of existing files
-        public_url = upload_txt_file(request.files['file'])
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+
+        filename = upload_txt_file(request.files['file'])
 
         lines = [] # for scope
 
-        with gcs.open(public_url, 'r') as file:
-            logging.info("reading lines")
-            lines = file.readlines()
+        logging.info("Reading file contents...")
+        with gcs.open(filename, 'r') as file:
+            lines = unicode(file.read(), 'utf-8').splitlines()
         try:
-            gcs.delete(public_url)
+            logging.info("Deleting file from google cloud drive...")
+            gcs.delete(filename)
         except gcs.NotFoundError:
             pass
+        logging.info("File successfully read and removed.")
 
+        logging.info("Processing files...")
         # get object representing processed text
         processed = process(lines)
+        logging.info("File processed, generating...")
         sentences = generate(processed, int(request.form['repeat']))
+        logging.info("Sentences successfully generated.")
         return render_template('mockingbird.html', sentences=sentences)
     else:
         return render_template('mockingbird.html')
