@@ -55,7 +55,7 @@ function toggleMenu() {
 		// tell main to slide over
 		main.classList.remove('open');
 		main.classList.add('closed');
-		(this.firstChild as HTMLElement).innerHTML = DOWN_ARROW;
+		(this.firstChild as HTMLElement).innerHTML = UP_ARROW;
 	} else {
 		// show menu
 		menu.classList.remove('closed');
@@ -63,7 +63,7 @@ function toggleMenu() {
 		// tell main to slide over
 		main.classList.remove('closed');
 		main.classList.add('open');
-		(this.firstChild as HTMLElement).innerHTML = UP_ARROW;
+		(this.firstChild as HTMLElement).innerHTML = DOWN_ARROW;
 	}
 }
 

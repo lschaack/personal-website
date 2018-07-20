@@ -637,12 +637,44 @@ export module Minesweeper {
 		messageElement.style.display = 'none';
 	}
 
+	function toggleSettings() {
+		let settings = document.querySelector('.settings-dropdown');
+	
+		if (settings.classList.contains('open')) {
+			// hide settings
+			settings.classList.remove('open');
+			settings.classList.add('closed');
+		} else {
+			// show settings
+			settings.classList.remove('closed');
+			settings.classList.add('open');
+		}
+	}
+	
+	function openThis() {
+		if (this.classList.contains('closed')) {
+			this.classList.remove('closed');
+			this.classList.add('open');
+		}
+	}
+
+	function closeThis() {
+		if (this.classList.contains('open')) {
+			this.classList.remove('open');
+			this.classList.add('closed');
+		}
+	}
+
 	/* To avoid window.onload conflicts */
 	export function minesweeperSetup() {
 		counter = document.getElementById('mine-counter');
 		timer = document.getElementById('time-counter');
 		setInterval(updateTime, 1000); // doesn't need a variable, cause it always runs
 
+		let settings = document.querySelector('.settings-dropdown');
+		(settings as HTMLElement).onmouseenter = openThis;
+		(settings as HTMLElement).onmouseleave = closeThis;
+		(settings as HTMLElement).onclick = toggleSettings;
 		let resetButton = document.getElementById('minesweeper-face');
 		resetButton.onclick = reset;
 		// These prevent onclick unless clicked outside the face for some reason...

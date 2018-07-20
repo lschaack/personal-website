@@ -124,6 +124,7 @@ strong {
 	left: 15px;
 	top: 0px;
 	width: 60px;
+	cursor: default;
 }
 
 #toggle-menu p {
@@ -145,6 +146,7 @@ strong {
 }
 
 .item {
+	cursor: default;
 	float: left;
 	width: 60px;
 	line-height: 0px; /* for better centering */
@@ -183,12 +185,16 @@ strong {
 	height: 60px;
 }
 
-.item:hover + .option-container, .item:active + .option-container {
+.sub-option h3 {
+	cursor: default;
+}
+
+.item:hover + .option-container, .item:active + .option-container, .item:focus + .option-container {
 	border-left: none;
 	width: 150px;
 }
 
-.option-container:hover, .option-container:active {
+.option-container:hover, .option-container:active, .option-container:focus {
 	border-left: none;
 	width: 150px;
 	/* below seems to be the only setting that works...TODO */

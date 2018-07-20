@@ -5,17 +5,11 @@ from google.appengine.api import app_identity
 # from google.cloud import storage
 import cloudstorage as gcs
 import logging
+import chardet
 import codecs
 import sys
 import os
 os.environ["PYTHONIOENCODING"] = "utf-8"
-
-# # uncomment for debugging
-# try:
-#   import googleclouddebugger
-#   googleclouddebugger.enable()
-# except ImportError:
-#   pass
 
 # get Google Cloud Storage bucket
 DEFAULT_BUCKET = os.environ.get('BUCKET_NAME', app_identity.get_default_gcs_bucket_name())
@@ -46,10 +40,28 @@ def upload_txt_file(file):
     fullpath = '/{}/{}'.format(DEFAULT_BUCKET, filename)
 
     contents = file.read()
+
+    # thanks to: https://stackoverflow.com/a/23648920
+    # Try to automatically detect encoding
     try:
-        contents = contents.decode('utf-8', 'backslashreplace')
-    except UnicodeEncodeError:
-        contents = contents.decode('iso-8859-1', 'backslashreplace')
+        logging.info('Attempting to automatically detect encoding...')
+        contents = contents.decode(chardet.detect(contents)['encoding'])
+        contents = contents.replace('\r\n', '\n') # Remove windows end line
+        # Remove BOM
+        if contents.startswith(codecs.BOM_UTF8):
+            contents = contents.replace(codecs.BOM_UTF8, '', 1)
+    except UnicodeDecodeError:
+        try:
+            logging.info('Automatic detection failed, trying Unicode...')
+            contents = contents.decode('utf-8')
+        except UnicodeDecodeError:
+            try:
+                logging.info('Trying Windows-1251 encoding...')
+                contents = contents.decode('windows-1251')
+            except UnicodeDecodeError:
+                logging.info('Defaulting to Latin-1 encoding...')
+                contents = contents.decode('iso-8859-1', 'ignore')
+    logging.info('Contents successfully decoded.')
 
     write_retry_params = gcs.RetryParams(backoff_factor=1.1)
     logging.info("Writing to /{}/{}".format(DEFAULT_BUCKET, filename))
@@ -59,7 +71,7 @@ def upload_txt_file(file):
         content_type='text/plain, charset=utf-8;',
         retry_params=write_retry_params
     )
-    gcs_file.write(contents.encode('utf-8', 'backslashreplace'))
+    gcs_file.write(contents.encode('utf-8', 'backslashreplace')) # replace?
     gcs_file.close()
 
     logging.info("Uploaded file %s.", filename)

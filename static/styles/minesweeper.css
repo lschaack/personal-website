@@ -49,6 +49,7 @@ input {
 	float: left;
 	height: 100%;
 	width: 15%;
+	cursor: default;
 }
 
 .settings-content {
@@ -61,7 +62,9 @@ input {
 	position: absolute;
 	left: -0.3%;
 	z-index: 1; /* so win-message doesn't overlap */
-	display: none;
+	overflow: hidden;
+	/* display: none; */
+	/* height: 0px; */
 }
 
 .settings-content div {
@@ -72,8 +75,16 @@ input {
 	float: left;
 }
 
-.settings-dropdown:hover .settings-content {
+.settings-dropdown:hover {
+	cursor: default;
+}
+
+.settings-dropdown.open .settings-content {
 	display: block;
+}
+
+.settings-dropdown.closed .settings-content {
+	display: none;
 }
 
 #info {
@@ -88,6 +99,7 @@ input {
 	background-color: black;
 	float: left;
 	height: 30px;
+	cursor: default;
 }
 
 .counter {
@@ -115,6 +127,7 @@ input {
 
 #flag-mode {
 	float: right;
+	cursor: default;
 }
 
 #flag-mode p {

@@ -2,12 +2,14 @@
 <html>
 	{% include 'head.html' %}
 	<head>
+		<link href="{{ url_for('static', filename='styles/writing.css') }}" type="text/css" rel="stylesheet" />
 		<link href="{{ url_for('static', filename='styles/resume.css') }}" type="text/css" rel="stylesheet" />
 	</head>
 
 	<body>
 		{% include 'menu.html' %}
 		<div class="main open">
+			<embed src="{{ url_for('static', filename='pdfs/resume-lucas.pdf') }}" height="900px" width="1200px" type='application/pdf'>
             <img src="{{ url_for('static', filename='images/resume-lucas.png') }}">
             <a href="{{ url_for('static', filename='pdfs/resume-lucas.pdf') }}">Download the PDF here</a>
         </div>
