@@ -127,6 +127,11 @@ strong {
 	cursor: default;
 }
 
+#toggle-menu:hover p {
+	font-size: 3em;
+	line-height: 1em;
+}
+
 #toggle-menu p {
 	text-align: center;
 	margin: 0px;

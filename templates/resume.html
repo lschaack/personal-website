@@ -10,8 +10,9 @@
 		{% include 'menu.html' %}
 		<div class="main open">
 			<embed src="{{ url_for('static', filename='pdfs/resume-lucas.pdf') }}" height="900px" width="1200px" type='application/pdf'>
-            <img src="{{ url_for('static', filename='images/resume-lucas.png') }}">
-            <a href="{{ url_for('static', filename='pdfs/resume-lucas.pdf') }}">Download the PDF here</a>
+			<form method="GET" action="{{ url_for('static', filename='pdfs/resume-lucas.pdf') }}">
+				<button type="submit">⤓</button>
+			</form>
         </div>
 	</body>
 </html>

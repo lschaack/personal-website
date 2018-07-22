@@ -84,7 +84,5 @@ window.onload = function() {
 	// Load minesweeper if we're on the correct page
 	if (document.querySelector('body').className == 'minesweeper') {
 		Minesweeper.minesweeperSetup();
-	} else if (document.querySelector('body').className == 'writing') {
-		console.log('inside conditional');
 	}
 }

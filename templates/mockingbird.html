@@ -57,7 +57,7 @@
 				</p>
 				<strong>To use:</strong></br>
 				<strong>* Choose a fairly small text file to upload—the limit is set
-					at 100kb, which tends to produce the best results anyway. Unicode
+					at 50kb, which tends to produce the best results anyway. Unicode
 					and latin-1 encodings are handled directly, and other encodings
 					will likely work, but may show backslash-replaced characters.</strong></br>
 				<strong>* Select the number of sentences to generate (between 10 and 100)</strong></br>
@@ -65,12 +65,12 @@
 				<strong>* Wait!</strong></br>
 			</div>
 
-            <h2>Upload new file (limit 100 kilobytes)</h2>
+            <h2>Upload new file (limit 50 kilobytes)</h2>
             <form method=post enctype=multipart/form-data>
             <input type=file name=file>
 			<input type=number name=repeat id="repeat"
                    placeholder="[10, 100]"
-                   min=10 max=100 step=1>
+                   min=10 max=100 step=1 value=10>
             <input type=submit value=Upload>
 			</form>
 			

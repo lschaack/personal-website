@@ -14,7 +14,7 @@ os.environ["PYTHONIOENCODING"] = "utf-8"
 # get Google Cloud Storage bucket
 DEFAULT_BUCKET = os.environ.get('BUCKET_NAME', app_identity.get_default_gcs_bucket_name())
 ALLOWED_EXTENSIONS = set(['txt']) # in case I want to add more later
-MAX_CONTENT_LENGTH = 100 * 1024 # 100kb
+MAX_CONTENT_LENGTH = 50 * 1024 # 50kb
 
 app = Flask(__name__)
 app.config['CLOUD_STORAGE_BUCKET'] = DEFAULT_BUCKET
