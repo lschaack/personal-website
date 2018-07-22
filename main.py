@@ -24,7 +24,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def upload_txt_file(file):
+def upload_txt_file(file, autodetect=False):
     ### grab file, first part largely from:
     ###    http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
 
@@ -42,25 +42,24 @@ def upload_txt_file(file):
     contents = file.read()
 
     # thanks to: https://stackoverflow.com/a/23648920
-    # Try to automatically detect encoding
-    try:
-        logging.info('Attempting to automatically detect encoding...')
-        contents = contents.decode(chardet.detect(contents)['encoding'])
-        contents = contents.replace('\r\n', '\n') # Remove windows end line
-        # Remove BOM
-        if contents.startswith(codecs.BOM_UTF8):
-            contents = contents.replace(codecs.BOM_UTF8, '', 1)
-    except UnicodeDecodeError:
+    # Conditionally try to automatically detect encoding
+    # Retry with specific encodings if this fails or is turned off
+    retry = False
+    if autodetect:
         try:
-            logging.info('Automatic detection failed, trying Unicode...')
+            logging.info('Attempting to automatically detect encoding...')
+            contents = contents.decode(chardet.detect(contents)['encoding'])
+        except UnicodeDecodeError:
+            retry = True # handle below
+            logging.info('Automatic detection failed.')
+    if not autodetect or retry:
+        try:
+            logging.info('Trying Unicode...')
             contents = contents.decode('utf-8')
         except UnicodeDecodeError:
-            try:
-                logging.info('Trying Windows-1251 encoding...')
-                contents = contents.decode('windows-1251')
-            except UnicodeDecodeError:
-                logging.info('Defaulting to Latin-1 encoding...')
-                contents = contents.decode('iso-8859-1', 'ignore')
+            logging.info('Unicode failed, defaulting to Latin-1 encoding...')
+            contents = contents.decode('iso-8859-1', 'ignore')
+    contents = contents.replace('\r\n', '\n') # Remove windows end line
     logging.info('Contents successfully decoded.')
 
     write_retry_params = gcs.RetryParams(backoff_factor=1.1)
@@ -82,6 +81,8 @@ def process(lines):
     # get formatted text
     formatter = grammar_processor.Formatter(lines)
     formatted = formatter.get_formatted()
+    logging.info('#' * 100)
+    logging.info(u'Formatted: {}'.format(formatted))
     # create the tree which will represent all sentence structures within text
     senTree = grammar_processor.SentenceTree()
     # create sentence tree and necessary dictionaries
@@ -97,9 +98,10 @@ def generate(processed, repeat):
                 if word in grammar_consts.ME:
                     sentence = sentence.replace(' ' + word + ' ', ' ' + word.title() + ' ')
         
-        # join spaces on punctuation
         sentence = sentence.replace(' ,', ',')
-        sentence = sentence.replace(' .', '.')
+
+        if sentence[-1:] == ',':
+            sentence = sentence[:-1]
         # add to list of sentences
         generated.append(sentence[:1].title() + sentence[1:] + '.')
     return generated

@@ -32,6 +32,29 @@
 					terminated with a period, and the entire process repeated as many
 					times as requested.
 				</p>
+				<p>
+					This particular project broke upon deploying this website to
+					the appspot server it is hosted on, extending work on the site
+					by nearly a week. The delay was caused by a number of issues,
+					including development in a different version of Python from
+					the interpreter (developed in 3.6.5, interpreted as 2.7.15),
+					functions missing from the libraries available within App Engine
+					(numpy 1.6.1, for example, doesn't have a random.choice function,
+					so I had to make a custom version), certain libraries missing
+					entirely (NLTK had to be installed manually, and huge thanks to
+					<a href=https://github.com/rutherford/nltk-gae>rutherford and his
+					nltk-gae project</a> for making that possible), persistent
+					encoding issues which are abstracted away in Python 3 due to
+					the use of byte strings as opposed to unicode in the abstract
+					string implementation for that version, and size constraints on
+					the uploaded file, as the text must be processable within the
+					60-second timeout before the host server throws an error.
+					I feel this experience has given me some insight in the number
+					of ways a project can go wrong at the last possible moment,
+					which will be invaluable when working on projects with more
+					serious stakes.
+
+				</p>
 				<strong>To use:</strong></br>
 				<strong>* Choose a fairly small text file to upload—the limit is set
 					at 100kb, which tends to produce the best results anyway. Unicode
