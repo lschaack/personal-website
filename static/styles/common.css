@@ -233,12 +233,25 @@ input {
 	font-size: 1em;
 }
 
+/*
+ * Below is ridiculous, but Safari doesn't like my script so it's really the
+ * only way to do it if I want it to look the same in every browser.
+ */
 #first-option { background-color: rgb(217, 43, 0) }
 
 #second-option { background-color: rgb(254, 212, 63) }
+#second-option + div { background-color: rgb(254, 221, 101) }
+#second-option + div + div { background-color: rgb(254, 229, 140) }
+#second-option + div + div + div { background-color: rgb(255, 238, 178) }
 
 #third-option { background-color: rgb(103, 173, 41) }
+#third-option + div { background-color: rgb(133, 189, 84) }
+#third-option + div + div { background-color: rgb(164, 206, 127) }
+#third-option + div + div + div { background-color: rgb(194, 222, 169) }
 
-#fourth-option { background-color: hsl(180, 70%, 40%) }
+#fourth-option { background-color: rgb(31, 173, 173) }
+#fourth-option + div { background-color: rgb(76, 189, 189) }
+#fourth-option + div + div { background-color: rgb(121, 206, 206) }
+#fourth-option + div + div + div { background-color: rgb(165, 222, 222) }
 
 #fifth-option { background-color: rgb(156, 151, 222)  }

@@ -8,7 +8,7 @@
         "alwaysStrict": true,
         "target": "es5",
         "lib": ["es5", "es6", "dom"],
-        "outDir": "./static/dist"
+        "outDir": "./static/dist",
     },
     "include": [
         "./static/src/*"

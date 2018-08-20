@@ -9,14 +9,20 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: ['.ts', '.js']
+		extensions: ['.ts', '.js', '.jsx']
 	},
 	
 	module: {
 		rules: [
 			{
-				test: /\.ts$/,
-				loader: 'ts-loader'
+				test: /\.tsx?$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader'
+			},
+			{
+				test: /\.js$/,
+				use: ["source-map-loader"],
+				enforce: "pre"
 			}
 		]
 	},
